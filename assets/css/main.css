@@ -218,6 +218,7 @@ h6 {
 .header .branding {
   min-height: 60px;
   padding: 10px 0;
+  background-color: #fff;
 }
 
 .header .logo {
@@ -245,7 +246,7 @@ h6 {
 /* Global Header on Scroll
 ------------------------------*/
 .scrolled .header {
-  --background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 
 /*--------------------------------------------------------------
@@ -393,6 +394,7 @@ h6 {
     margin-right: 10px;
     cursor: pointer;
     transition: color 0.3s;
+
   }
 
   .navmenu {
@@ -1317,18 +1319,23 @@ section,
 
 @media (max-width: 768px) {
   .hero .hero-visual .main-image .floating-card.appointment-card {
-    right: 10px;
-    top: 10px;
-    padding: 1rem;
-    min-width: 160px;
-
+    right: 2px;
+    top: 80px;
+    padding: 0.4rem 0.6rem;
+    min-width: unset;
+    width: auto;
+    transform: scale(0.75);
+    transform-origin: top right;
   }
 
   .hero .hero-visual .main-image .floating-card.rating-card {
     left: 10px;
     bottom: 10px;
-    padding: 1rem;
-    min-width: 120px;
+    padding: 0.4rem 0.6rem;
+    min-width: unset;
+    width: auto;
+    transform: scale(0.75);
+    transform-origin: bottom left;
   }
 }
 
@@ -1572,6 +1579,10 @@ section,
     margin-top: 2rem;
     left: auto;
     bottom: auto;
+  }
+
+  .home-about .about-content .cta-section {
+    justify-content: center;
   }
 }
 
