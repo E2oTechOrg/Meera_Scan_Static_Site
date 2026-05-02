@@ -42,6 +42,10 @@ function initFooter() {
         console.error("Footer not found!");
         return;
     }
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+        yearEl.textContent = new Date().getFullYear();
+    }
 
     console.log("Footer loaded successfully");
 }

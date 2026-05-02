@@ -37,51 +37,40 @@
    */
   document.addEventListener('DOMContentLoaded', function () {
 
-    /**
-     * Mobile nav toggle
-     */
-    const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+    // Use event delegation for dynamically loaded header
+    document.addEventListener('click', function (e) {
 
-    function mobileNavToggle() {
-      document.body.classList.toggle('mobile-nav-active');
-
-      if (mobileNavToggleBtn) {
-        mobileNavToggleBtn.classList.toggle('bi-list');
-        mobileNavToggleBtn.classList.toggle('bi-x');
-      }
-    }
-
-    if (mobileNavToggleBtn) {
-      mobileNavToggleBtn.addEventListener('click', mobileNavToggle);
-    }
-
-    /**
-     * Hide mobile nav on link click
-     */
-    document.querySelectorAll('#navmenu a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (document.body.classList.contains('mobile-nav-active')) {
-          mobileNavToggle();
-        }
-      });
-    });
-
-    /**
-     * Mobile dropdown toggle
-     */
-    document.querySelectorAll('.navmenu .toggle-dropdown').forEach(toggle => {
-      toggle.addEventListener('click', function (e) {
+      // Hamburger toggle
+      if (e.target.closest('.mobile-nav-toggle')) {
         e.preventDefault();
-
-        this.parentNode.classList.toggle('active');
-
-        const dropdown = this.parentNode.nextElementSibling;
-        if (dropdown) {
-          dropdown.classList.toggle('dropdown-active');
+        document.body.classList.toggle('mobile-nav-active');
+        const btn = document.querySelector('.mobile-nav-toggle');
+        if (btn) {
+          btn.classList.toggle('bi-list');
+          btn.classList.toggle('bi-x');
         }
+      }
 
+      // Close menu when nav link clicked
+      if (e.target.closest('#navmenu a') && document.body.classList.contains('mobile-nav-active')) {
+        document.body.classList.remove('mobile-nav-active');
+        const btn = document.querySelector('.mobile-nav-toggle');
+        if (btn) {
+          btn.classList.add('bi-list');
+          btn.classList.remove('bi-x');
+        }
+      }
+
+      // Dropdown toggle
+      if (e.target.closest('.navmenu .toggle-dropdown')) {
+        e.preventDefault();
         e.stopImmediatePropagation();
-      });
+        const toggle = e.target.closest('.toggle-dropdown');
+        toggle.parentNode.classList.toggle('active');
+        const dropdown = toggle.parentNode.nextElementSibling;
+        if (dropdown) dropdown.classList.toggle('dropdown-active');
+      }
+
     });
 
   });
