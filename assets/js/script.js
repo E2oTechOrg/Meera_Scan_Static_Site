@@ -68,3 +68,68 @@ function setActiveMenu() {
 
 loadComponent("header-container", "header.html");
 loadComponent("footer-container", "footer.html");
+
+const slides = document.querySelectorAll('.blog-slide');
+const dotsContainer = document.getElementById('blog-dots');
+const prevBtn = document.getElementById('blog-prev');
+const nextBtn = document.getElementById('blog-next');
+let currentIndex = 0;
+
+function cardsPerPage() {
+    if (window.innerWidth >= 992) return 3;
+    if (window.innerWidth >= 768) return 2;
+    return 1;
+}
+
+function createDots() {
+    dotsContainer.innerHTML = '';
+    const pages = Math.ceil(slides.length / cardsPerPage());
+    for (let i = 0; i < pages; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('blog-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToPage(i));
+        dotsContainer.appendChild(dot);
+    }
+}
+
+function updateSlider() {
+    const perPage = cardsPerPage();
+    const start = currentIndex * perPage;
+    const end = start + perPage;
+
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('hidden', i < start || i >= end);
+    });
+
+    document.querySelectorAll('.blog-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+    });
+
+    const totalPages = Math.ceil(slides.length / perPage);
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= totalPages - 1;
+}
+
+function goToPage(index) {
+    currentIndex = index;
+    updateSlider();
+}
+
+prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) { currentIndex--; updateSlider(); }
+});
+
+nextBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(slides.length / cardsPerPage());
+    if (currentIndex < totalPages - 1) { currentIndex++; updateSlider(); }
+});
+
+window.addEventListener('resize', () => {
+    currentIndex = 0;
+    createDots();
+    updateSlider();
+});
+
+createDots();
+updateSlider();
