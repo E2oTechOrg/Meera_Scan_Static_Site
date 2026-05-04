@@ -169,6 +169,91 @@
   window.addEventListener("load", initSwiper);
 
 
+  (function () {
+    const track = document.getElementById('blog-track');
+    const dotsContainer = document.getElementById('blog-dots');
+    const prevBtn = document.getElementById('blog-prev');
+    const nextBtn = document.getElementById('blog-next');
+
+    if (!track) return;
+
+    const items = Array.from(track.querySelectorAll('.blog-slide-item'));
+    let currentPage = 0;
+
+    function getPerPage() {
+      if (window.innerWidth >= 992) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function getTotalPages() {
+      return Math.ceil(items.length / getPerPage());
+    }
+
+    function getGap() { return 24; }
+
+    function getItemWidth() {
+      const clip = track.parentElement;
+      const perPage = getPerPage();
+      const totalGap = getGap() * (perPage - 1);
+      return (clip.offsetWidth - totalGap) / perPage;
+    }
+
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      const total = getTotalPages();
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('blog-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function goTo(page) {
+      const perPage = getPerPage();
+      const itemW = getItemWidth();
+      const offset = page * perPage * (itemW + getGap());
+
+      track.style.transform = `translateX(-${offset}px)`;
+      currentPage = page;
+
+      document.querySelectorAll('.blog-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === page);
+      });
+
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= getTotalPages() - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 0) goTo(currentPage - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < getTotalPages() - 1) goTo(currentPage + 1);
+    });
+
+    function init() {
+      currentPage = 0;
+      track.style.transform = 'translateX(0)';
+      createDots();
+      goTo(0);
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 150);
+    });
+
+    init();
+  })();
+
+
+  
+
   /**
    * FAQ Toggle
    */
