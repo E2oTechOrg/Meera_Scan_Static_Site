@@ -6691,11 +6691,18 @@ section,
   color: rgba(74, 74, 74, 0.85);
   line-height: 1.9;
   margin-bottom: 18px;
+  text-align: justify;
 }
 
 .blog-body strong {
   color: var(--dark);
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .blog-body {
+    text-align: justify;
+  }
 }
 
 /* ── Highlight Box ── */
@@ -6749,6 +6756,8 @@ section,
 }
 
 /* ── Check List ── */
+/* ── Checklist — Alignment Fix (no HTML changes needed) ── */
+
 .blog-checklist {
   list-style: none;
   padding: 0;
@@ -6757,23 +6766,59 @@ section,
 
 .blog-checklist li {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 12px;
-  padding: 10px 0;
+  padding: 12px 0;
   font-size: 15px;
-  color: var(--gray);
+  color: rgba(74, 74, 74, 0.85);
   border-bottom: 1px solid rgba(155, 89, 182, 0.08);
+  flex-wrap: nowrap;
 }
 
 .blog-checklist li:last-child {
   border-bottom: none;
 }
 
+/* Icon — stays left, never shrinks */
 .blog-checklist li i {
-  color: var(--pink);
+  color: #E91E8C;
   font-size: 16px;
-  margin-top: 2px;
   flex-shrink: 0;
+  width: 18px;
+  margin-top: 2px;
+}
+
+/* FIRST <strong> only — fixed width label column */
+.blog-checklist li>strong:first-of-type {
+  flex-shrink: 0;
+  width: 200px;
+  min-width: 200px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a0a2e;
+  line-height: 1.5;
+}
+
+/* Any OTHER <strong> tags inside the description — just normal inline bold */
+.blog-checklist li>strong:not(:first-of-type) {
+  width: auto;
+  min-width: unset;
+  flex-shrink: 1;
+  font-weight: 600;
+  color: #1a0a2e;
+  display: inline;
+}
+
+/* Mobile — stack vertically */
+@media (max-width: 768px) {
+  .blog-checklist li {
+    flex-wrap: wrap;
+  }
+
+  .blog-checklist li>strong:first-of-type {
+    width: calc(100% - 30px);
+    min-width: unset;
+  }
 }
 
 /* ── Steps ── */
