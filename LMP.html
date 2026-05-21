@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LMP Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            background: #eef;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>LMP Calculator</h2>
+
+        <label>LMP Date:</label>
+        <input type="date" id="lmp" />
+
+        <label>Cycle Length (days):</label>
+        <input type="number" id="cycle" value="28" />
+
+        <label>Check Date (Today):</label>
+        <input type="date" id="checkDate" />
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            let lmp = new Date(document.getElementById("lmp").value);
+            let cycle = parseInt(document.getElementById("cycle").value);
+            let checkDate = new Date(document.getElementById("checkDate").value);
+
+            if (!lmp || !checkDate) {
+                document.getElementById("result").innerHTML = "Please enter all dates";
+                return;
+            }
+
+            // cycle correction
+            let correctedLMP = new Date(lmp);
+            correctedLMP.setDate(lmp.getDate() + (cycle - 28));
+
+            // due date (40 weeks)
+            let dueDate = new Date(correctedLMP);
+            dueDate.setDate(correctedLMP.getDate() + 280);
+
+            // gestational age
+            let diffTime = checkDate - correctedLMP;
+            let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            let weeks = Math.floor(diffDays / 7);
+            let days = diffDays % 7;
+
+            document.getElementById("result").innerHTML = `
+        <b>Corrected LMP:</b> ${correctedLMP.toDateString()} <br>
+        <b>Due Date:</b> ${dueDate.toDateString()} <br>
+        <b>Gestational Age:</b> ${weeks} weeks ${days} days
+      `;
+        }
+    </script>
+
+</body>
+
+</html>
