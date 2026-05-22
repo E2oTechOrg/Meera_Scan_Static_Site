@@ -29,23 +29,137 @@
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
+
+                    <li class="dropdown">
+                          <a href="#">About 
+                            <i class="fa-solid fa-chevron-down toggle-dropdown"></i>
+                        </a>
+
+                          <ul>
+                            <li class="dropdown">
+                                <a href="about.html">
+                                    About us
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="faq.html">
+                                    FAQ
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="gallery.html">
+                                    Gallery
+                                </a>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="gallery.html">
+                                    Video
+                                </a>
+                            </li>
+                          </ul>
+                    </li>
+                    
+
+
                     <!-- <li><a href="departments.html">Departments</a></li> -->
 
-                <li class="dropdown">
-                    <a href="services.html">Services <i class="fa-solid fa-chevron-down"></i></a>
-                
-                    <ul class="dropdown-menu">
-                        <li><a href="AntenatalScan.html">Antenatal Scan</a></li>
-                        <li><a href="Womenimaging.html">Women's Imaging</a></li>
-                        <li><a href="service-details.html?service=whole-abdomen">Whole Abdomen Scan</a></li>
-                        <li><a href="service-details.html?service=usg-local-parts">USG-Local Parts</a></li>
-                        <li><a href="service-details.html?service=adult-echo">Adult Echo</a></li>
-                        <li><a href="Dopplerstudy.html">Doppler </a></li>
-                        <li><a href="FetalInterventions.html">Fetal Interventions</a></li>
-                        <li><a href="Generalinterventions.html">General interventions</a></li>
-                    </ul>
-                </li>
+
+                    <li class="dropdown">
+                        <a href="services.html">
+                            Services <i class="fa-solid fa-chevron-down toggle-dropdown"></i>
+                        </a>
+                        <ul>
+                            <!-- Antenatal -->
+                            <li class="dropdown">
+                                <a href="#">
+                                    Antenatal Scan
+                                    <i class="fa-solid fa-chevron-right toggle-dropdown"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="service-details.html?service=early-pregnancy-scan">Early Pregnancy
+                                            Scan</a></li>
+                                    <li><a href="service-details.html?service=nt-scan">NT Scan</a></li>
+                                    <li><a href="service-details.html?service=early-anomaly-scan">Early Anomaly Scan</a>
+                                    </li>
+                                    <li><a href="service-details.html?service=anomaly-scan">TIFFA Scan</a></li>
+                                    <li><a href="service-details.html?service=fetal-echo">Fetal ECHO</a></li>
+                                    <li><a href="service-details.html?service=fetal-growth">Growth Scan / BPP</a></li>
+                                    <li><a href="service-details.html?service=doppler-scan">Doppler</a></li>
+                                    <li><a href="service-details.html?service=3d-4d-scan">3D / 4D Ultrasound</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Women's Imaging -->
+                            <li class="dropdown">
+                                <a href="#">
+                                    Women's Imaging
+                                    <i class="fa-solid fa-chevron-right toggle-dropdown"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="service-details.html?service=breast-scan">Breast Scan</a></li>
+                                    <li><a href="service-details.html?service=thyroid-scan">Thyroid Scan</a></li>
+                                    <li><a href="service-details.html?service=pelvis-scan">Pelvis Scan</a></li>
+                                    <li><a href="service-details.html?service=sonosalpingogram">Sonosalpingogram</a>
+                                    </li>
+                                    <li><a href="service-details.html?service=fibroid-mapping">Fibroid Mapping</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="service-details.html?service=whole-abdomen">Whole Abdomen Scan</a></li>
+                            <li><a href="service-details.html?service=usg-local-parts">USG-Local Parts</a></li>
+                            <li><a href="service-details.html?service=adult-echo">Adult Echo</a></li>
+
+                            <!-- Doppler -->
+                            <li class="dropdown">
+                                <a href="#">
+                                    Doppler
+                                    <i class="fa-solid fa-chevron-right toggle-dropdown"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="service-details.html?service=upper-limb-arterial-doppler">Upper Limb
+                                            Arterial</a></li>
+                                    <li><a href="service-details.html?service=upper-limb-venous-doppler">Upper Limb
+                                            Venous</a></li>
+                                    <li><a href="service-details.html?service=lower-limb-arterial-doppler">Lower Limb
+                                            Arterial</a></li>
+                                    <li><a href="service-details.html?service=lower-limb-venous-doppler">Lower Limb
+                                            Venous</a></li>
+                                    <li><a href="service-details.html?service=carotid-doppler">Carotid Doppler</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- Fetal Interventions -->
+                            <li class="dropdown">
+                                <a href="#">
+                                    Fetal Interventions
+                                    <i class="fa-solid fa-chevron-right toggle-dropdown"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="service-details.html?service=cvs">CVS</a></li>
+                                    <li><a href="service-details.html?service=amniocentesis">Amniocentesis</a></li>
+                                    <li><a href="service-details.html?service=multifetal-reduction">Multifetal
+                                            Reduction</a></li>
+                                </ul>
+                            </li>
+
+                            <!-- General Interventions -->
+                            <li class="dropdown">
+                                <a href="#">
+                                    General Interventions
+                                    <i class="fa-solid fa-chevron-right toggle-dropdown"></i>
+                                </a>
+                                <ul>
+                                    <li><a href="service-details.html?service=fnac">FNAC</a></li>
+                                    <li><a href="service-details.html?service=trucut-biopsy">Trucut Biopsy</a></li>
+                                    <li><a href="service-details.html?service=aspiration">Aspiration</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </li>
 
                     <li><a href="doctors.html">Doctors</a></li>
                     <li><a href="LMP.html">LMP</a></li>
@@ -86,7 +200,7 @@
                             <li><a href="#">Dropdown 4</a></li>
                         </ul>
                     </li> -->
-                    
+
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
 
