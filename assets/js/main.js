@@ -32,48 +32,67 @@
   window.addEventListener('load', toggleScrolled);
 
 
-  /**
-   * DOM READY (all UI interactions)
-   */
-  document.addEventListener('DOMContentLoaded', function () {
+  // DOM READY (all UI interactions)
 
-    // Use event delegation for dynamically loaded header
-    document.addEventListener('click', function (e) {
 
-      // Hamburger toggle
-      if (e.target.closest('.mobile-nav-toggle')) {
-        e.preventDefault();
-        document.body.classList.toggle('mobile-nav-active');
-        const btn = document.querySelector('.mobile-nav-toggle');
-        if (btn) {
-          btn.classList.toggle('bi-list');
-          btn.classList.toggle('bi-x');
-        }
+document.addEventListener('DOMContentLoaded', function () {
+
+  document.addEventListener('click', function (e) {
+
+    // ── Hamburger toggle ──
+    if (e.target.closest('.mobile-nav-toggle')) {
+      e.preventDefault();
+      const isActive = document.body.classList.toggle('mobile-nav-active');
+      document.body.style.overflow = isActive ? 'hidden' : '';  // ← stop page scroll
+      const btn = document.querySelector('.mobile-nav-toggle');
+      if (btn) {
+        btn.classList.toggle('bi-list');
+        btn.classList.toggle('bi-x');
       }
+    }
 
-      // Close menu when nav link clicked
-      if (e.target.closest('#navmenu a') && document.body.classList.contains('mobile-nav-active')) {
+    // ── Close menu when non-dropdown nav link clicked ──
+    if (e.target.closest('#navmenu a') && document.body.classList.contains('mobile-nav-active')) {
+      const clickedA = e.target.closest('#navmenu a');
+      const hasDropdown = clickedA.parentElement.classList.contains('dropdown');
+      if (!hasDropdown) {
         document.body.classList.remove('mobile-nav-active');
+        document.body.style.overflow = '';   // ← restore page scroll
         const btn = document.querySelector('.mobile-nav-toggle');
         if (btn) {
           btn.classList.add('bi-list');
           btn.classList.remove('bi-x');
         }
       }
+    }
 
-      // Dropdown toggle
-      if (e.target.closest('.navmenu .toggle-dropdown')) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const toggle = e.target.closest('.toggle-dropdown');
-        toggle.parentNode.classList.toggle('active');
-        const dropdown = toggle.parentNode.nextElementSibling;
-        if (dropdown) dropdown.classList.toggle('dropdown-active');
-      }
+    // ── Dropdown toggle ──
+    if (e.target.closest('.toggle-dropdown')) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    });
+      const toggle = e.target.closest('.toggle-dropdown');
+      const parentLi = toggle.closest('li');
+      const dropdown = parentLi.querySelector(':scope > ul');
+
+      // Close siblings
+      const siblings = parentLi.parentElement.querySelectorAll(':scope > li.dropdown');
+      siblings.forEach(sib => {
+        if (sib !== parentLi) {
+          sib.classList.remove('active');
+          const sibDd = sib.querySelector(':scope > ul');
+          if (sibDd) sibDd.classList.remove('dropdown-active');
+        }
+      });
+
+      // Toggle current
+      parentLi.classList.toggle('active');
+      if (dropdown) dropdown.classList.toggle('dropdown-active');
+    }
 
   });
+
+});
 
 
   /**
@@ -86,9 +105,8 @@
     });
   }
 
-
   /**
-   * Scroll top button
+   * WhatsApp Floating Button
    */
   const scrollTop = document.querySelector('.scroll-top');
 
@@ -100,19 +118,8 @@
       : scrollTop.classList.remove('active');
   }
 
-  if (scrollTop) {
-    scrollTop.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  }
-
   window.addEventListener('load', toggleScrollTop);
   document.addEventListener('scroll', toggleScrollTop);
-
 
   /**
    * AOS Animation (safe)
@@ -252,18 +259,24 @@
   })();
 
 
-  
-
   /**
-   * FAQ Toggle
-   */
-  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle, .faq-item .faq-header')
-    .forEach((item) => {
-      item.addEventListener('click', () => {
-        if (item.parentNode) {
-          item.parentNode.classList.toggle('faq-active');
-        }
+     * FAQ Toggle
+     */
+  document.querySelectorAll('.faq-item .faq-header').forEach((header) => {
+    header.addEventListener('click', () => {
+      const parentItem = header.closest('.faq-item');
+      const isAlreadyOpen = parentItem.classList.contains('faq-active');
+
+      // Close all open items
+      document.querySelectorAll('.faq-item.faq-active').forEach(el => {
+        el.classList.remove('faq-active');
       });
+
+      // Open clicked one only if it was closed
+      if (!isAlreadyOpen) {
+        parentItem.classList.add('faq-active');
+      }
     });
+  });
 
 })();

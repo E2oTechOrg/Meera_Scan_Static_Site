@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Meera Scan in Madurai -Service Details</title>
+  <title>Meera Scan in Madurai - Service Details</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -29,14 +29,6 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: Clinic
-  * Template URL: https://bootstrapmade.com/clinic-bootstrap-template/
-  * Updated: Jul 23 2025 with Bootstrap v5.3.7
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="service-details-page">
@@ -70,11 +62,12 @@
       </nav>
     </div><!-- End Page Title -->
 
-    <!-- Service Details 2 Section -->
+    <!-- Service Details Section -->
     <section id="service-details-2" class="service-details-2 section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
+        <!-- Service Title & Lead -->
         <div class="row">
           <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up" data-aos-delay="150">
             <div class="service-header">
@@ -87,49 +80,33 @@
           </div>
         </div>
 
+        <!-- Details + Image -->
         <div class="row gy-4 align-items-center">
-
           <div class="col-lg-5" data-aos="fade-right" data-aos-delay="200">
             <div class="service-details" id="svc-details">
-              <!-- JS will build detail items here -->
+              <!-- JS builds detail items here -->
             </div>
           </div>
-
-          <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
-            <div class="service-visual">
-              <img id="svc-image" src="" alt="" class="img-fluid">
-              <div class="visual-overlay">
-                <div class="stats-card">
-                  <div class="stat">
-                    <span class="number" id="stat1-number"></span>
-                    <span class="label" id="stat1-label"></span>
-                  </div>
-                  <div class="stat">
-                    <span class="number" id="stat2-number"></span>
-                    <span class="label" id="stat2-label"></span>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+          <div class="service-visual">
+            <img id="svc-image" src="" alt="" class="img-fluid">
           </div>
-
+        </div>
         </div>
 
+        <!-- Overview -->
         <div class="row gy-4 mt-5">
           <div class="col-12" data-aos="fade-up" data-aos-delay="100">
             <div class="service-overview">
               <div class="row align-items-center">
-
                 <div class="col-lg-6">
                   <div class="service-overview-img">
                     <img id="svc-overview-img" src="" alt="" class="img-fluid rounded">
                   </div>
                 </div>
-
                 <div class="col-lg-6">
                   <h3 id="svc-overview-title"></h3>
                   <p id="svc-overview-text"></p>
-
                   <div class="features-grid">
                     <div class="feature">
                       <i class="bi bi-award"></i>
@@ -149,72 +126,137 @@
                     </div>
                   </div>
                 </div>
-
-                
-
               </div>
             </div>
           </div>
         </div>
 
+        <!-- How Performed + How to Prepare (2 cards side by side) -->
         <div class="row gy-4 mt-5">
 
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
-            <div class="action-card primary">
-              <div class="card-header">
-                <i class="bi bi-calendar-check"></i>
-                <h4>Schedule Consultation</h4>
+          <!-- How It Is Performed -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="svc-info-card">
+              <div class="svc-info-header">
+                <div class="svc-info-icon">
+                  <i class="bi bi-list-ol"></i>
+                </div>
+                <h4>How It Is Performed</h4>
               </div>
-              <p>Book your scan with our expert team</p>
-              <div class="card-footer">
-                <a href="appointment.html" class="btn-action">Book Now</a>
-                <span class="availability">Next available: Tomorrow</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-            <div class="action-card secondary">
-              <div class="card-header">
-                <i class="bi bi-telephone"></i>
-                <h4>Emergency Consultation</h4>
-              </div>
-              <p>24/7 support and rapid response</p>
-              <div class="card-footer">
-                <a href="tel:+919042883031" class="btn-action">Call Now</a>
-                <span class="availability">+91 90428 83031</span>
+              <div class="svc-steps" id="svc-steps">
+                <!-- JS loads -->
               </div>
             </div>
           </div>
 
-          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
-            <div class="action-card tertiary">
-              <div class="card-header">
-                <i class="bi bi-file-text"></i>
-                <h4>Get Second Opinion</h4>
+          <!-- How to Prepare -->
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="svc-info-card">
+              <div class="svc-info-header">
+                <div class="svc-info-icon">
+                  <i class="bi bi-clipboard2-check"></i>
+                </div>
+                <h4>How to Prepare</h4>
               </div>
-              <p>Expert review of existing diagnoses and treatment plans</p>
-              <div class="card-footer">
-                <a href="doctors.html" class="btn-action">Request Review</a>
-                <span class="availability">Response within 48h</span>
+              <ul class="svc-prepare-list" id="svc-prepare">
+                <!-- JS loads -->
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FAQ — full width below -->
+        <div class="row gy-4 mt-4">
+          <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+            <div class="svc-info-card">
+              <div class="svc-info-header">
+                <div class="svc-info-icon">
+                  <i class="bi bi-question-circle"></i>
+                </div>
+                <h4>FAQs</h4>
+              </div>
+              <div class="svc-faq" id="svc-faq">
+                <!-- JS loads -->
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Action Cards -->
+        <div class="row gy-4 mt-5">
+
+        <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="action-card primary">
+            <div class="card-header">
+              <i class="bi bi-calendar-check"></i>
+              <h4>Book Appointment</h4>
+            </div>
+        
+            <p>
+              Schedule your ultrasound and diagnostic scans with our experienced healthcare team.
+            </p>
+        
+            <div class="card-footer">
+              <a href="appointment.html" class="btn-action">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+          <div class="action-card secondary">
+            <div class="card-header">
+              <i class="bi bi-telephone"></i>
+              <h4>Contact Us</h4>
+            </div>
+        
+            <p>
+              Contact our team for appointments, scan details, and diagnostic service assistance.
+            </p>
+        
+            <div class="card-footer">
+              <a href="tel:+919042883031" class="btn-action">Call Now</a>
+              <span class="availability">+91 90428 83031</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+          <div class="action-card primary">
+            <div class="card-header">
+              <i class="bi bi-geo-alt"></i>
+              <h4>Visit Our Location</h4>
+            </div>
+        
+            <p>
+              16, Sambakulam Main Rd,opposite to YAMAHA show room, Surveyor Colony, Madurai,Tamil Nadu 625007
+            </p>
+        
+            <div class="card-footer">
+              <a href="contact.html" class="btn-action">Get Directions</a>
+            </div>
+          </div>
+        </div>
 
         </div>
 
       </div>
 
-    </section><!-- /Service Details 2 Section -->
+    </section><!-- /Service Details Section -->
 
   </main>
 
   <div id="footer-container"></div>
 
-
   <!-- Scroll Top -->
-  <a href="#!" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <!-- Scroll Top -->
+  
+  <a href="https://wa.me/919042883031" target="_blank" class="scroll-top">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+  
+  
+  <!-- preloader -->
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -227,11 +269,10 @@
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
-<!-- Main JS File -->
-<script src="assets/js/main.js"></script>
-<script src="assets/js/service-data.js"></script>
-<script src="assets/js/script.js"></script>
-
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/service-data.js"></script>
+  <script src="assets/js/script.js"></script>
 
 </body>
 
