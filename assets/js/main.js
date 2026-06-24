@@ -5,60 +5,95 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-
-(function() {
+(function () {
   "use strict";
 
   /**
-   * Apply .scrolled class to the body as the page is scrolled down
+   * Apply .scrolled class on scroll
    */
   function toggleScrolled() {
-    const selectBody = document.querySelector('body');
-    const selectHeader = document.querySelector('#header');
-    if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
-    window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+    const body = document.body;
+    const header = document.querySelector('#header');
+
+    if (!header) return; // ✅ prevent null error
+
+    if (
+      !header.classList.contains('scroll-up-sticky') &&
+      !header.classList.contains('sticky-top') &&
+      !header.classList.contains('fixed-top')
+    ) return;
+
+    window.scrollY > 100
+      ? body.classList.add('scrolled')
+      : body.classList.remove('scrolled');
   }
 
   document.addEventListener('scroll', toggleScrolled);
   window.addEventListener('load', toggleScrolled);
 
-  /**
-   * Mobile nav toggle
-   */
-  const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
 
-  function mobileNavToogle() {
-    document.querySelector('body').classList.toggle('mobile-nav-active');
-    mobileNavToggleBtn.classList.toggle('bi-list');
-    mobileNavToggleBtn.classList.toggle('bi-x');
-  }
-  if (mobileNavToggleBtn) {
-    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
-  }
+  // DOM READY (all UI interactions)
 
-  /**
-   * Hide mobile nav on same-page/hash links
-   */
-  document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    navmenu.addEventListener('click', () => {
-      if (document.querySelector('.mobile-nav-active')) {
-        mobileNavToogle();
-      }
-    });
 
-  });
+document.addEventListener('DOMContentLoaded', function () {
 
-  /**
-   * Toggle mobile nav dropdowns
-   */
-  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+  document.addEventListener('click', function (e) {
+
+    // ── Hamburger toggle ──
+    if (e.target.closest('.mobile-nav-toggle')) {
       e.preventDefault();
-      this.parentNode.classList.toggle('active');
-      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
-      e.stopImmediatePropagation();
-    });
+      const isActive = document.body.classList.toggle('mobile-nav-active');
+      document.body.style.overflow = isActive ? 'hidden' : '';  // ← stop page scroll
+      const btn = document.querySelector('.mobile-nav-toggle');
+      if (btn) {
+        btn.classList.toggle('bi-list');
+        btn.classList.toggle('bi-x');
+      }
+    }
+
+    // ── Close menu when non-dropdown nav link clicked ──
+    if (e.target.closest('#navmenu a') && document.body.classList.contains('mobile-nav-active')) {
+      const clickedA = e.target.closest('#navmenu a');
+      const hasDropdown = clickedA.parentElement.classList.contains('dropdown');
+      if (!hasDropdown) {
+        document.body.classList.remove('mobile-nav-active');
+        document.body.style.overflow = '';   // ← restore page scroll
+        const btn = document.querySelector('.mobile-nav-toggle');
+        if (btn) {
+          btn.classList.add('bi-list');
+          btn.classList.remove('bi-x');
+        }
+      }
+    }
+
+    // ── Dropdown toggle ──
+    if (e.target.closest('.toggle-dropdown')) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const toggle = e.target.closest('.toggle-dropdown');
+      const parentLi = toggle.closest('li');
+      const dropdown = parentLi.querySelector(':scope > ul');
+
+      // Close siblings
+      const siblings = parentLi.parentElement.querySelectorAll(':scope > li.dropdown');
+      siblings.forEach(sib => {
+        if (sib !== parentLi) {
+          sib.classList.remove('active');
+          const sibDd = sib.querySelector(':scope > ul');
+          if (sibDd) sibDd.classList.remove('dropdown-active');
+        }
+      });
+
+      // Toggle current
+      parentLi.classList.toggle('active');
+      if (dropdown) dropdown.classList.toggle('dropdown-active');
+    }
+
   });
+
+});
+
 
   /**
    * Preloader
@@ -71,30 +106,27 @@
   }
 
   /**
-   * Scroll top button
+   * WhatsApp Floating Button
    */
-  let scrollTop = document.querySelector('.scroll-top');
+  const scrollTop = document.querySelector('.scroll-top');
 
   function toggleScrollTop() {
-    if (scrollTop) {
-      window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
-    }
+    if (!scrollTop) return;
+
+    window.scrollY > 100
+      ? scrollTop.classList.add('active')
+      : scrollTop.classList.remove('active');
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  });
 
   window.addEventListener('load', toggleScrollTop);
   document.addEventListener('scroll', toggleScrollTop);
 
   /**
-   * Animation on scroll function and init
+   * AOS Animation (safe)
    */
   function aosInit() {
+    if (typeof AOS === "undefined") return;
+
     AOS.init({
       duration: 600,
       easing: 'ease-in-out',
@@ -102,45 +134,148 @@
       mirror: false
     });
   }
+
   window.addEventListener('load', aosInit);
 
-  /**
-   * Initiate glightbox
-   */
-  const glightbox = GLightbox({
-    selector: '.glightbox'
-  });
 
   /**
-   * Initiate Pure Counter
+   * GLightbox (safe)
    */
-  new PureCounter();
+  if (typeof GLightbox !== "undefined") {
+    GLightbox({
+      selector: '.glightbox'
+    });
+  }
+
 
   /**
-   * Init swiper sliders
+   * PureCounter (safe)
+   */
+  if (typeof PureCounter !== "undefined") {
+    new PureCounter();
+  }
+
+
+  /**
+   * Swiper (safe)
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
-      let config = JSON.parse(
-        swiperElement.querySelector(".swiper-config").innerHTML.trim()
-      );
+    if (typeof Swiper === "undefined") return;
 
-      if (swiperElement.classList.contains("swiper-tab")) {
-        initSwiperWithCustomPagination(swiperElement, config);
-      } else {
-        new Swiper(swiperElement, config);
-      }
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
+      const configEl = swiperElement.querySelector(".swiper-config");
+
+      if (!configEl) return;
+
+      let config = JSON.parse(configEl.innerHTML.trim());
+
+      new Swiper(swiperElement, config);
     });
   }
 
   window.addEventListener("load", initSwiper);
 
+
+  (function () {
+    const track = document.getElementById('blog-track');
+    const dotsContainer = document.getElementById('blog-dots');
+    const prevBtn = document.getElementById('blog-prev');
+    const nextBtn = document.getElementById('blog-next');
+
+    if (!track) return;
+
+    const items = Array.from(track.querySelectorAll('.blog-slide-item'));
+    let currentPage = 0;
+
+    function getPerPage() {
+      if (window.innerWidth >= 992) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function getTotalPages() {
+      return Math.ceil(items.length / getPerPage());
+    }
+
+    function getGap() { return 24; }
+
+    function getItemWidth() {
+      const clip = track.parentElement;
+      const perPage = getPerPage();
+      const totalGap = getGap() * (perPage - 1);
+      return (clip.offsetWidth - totalGap) / perPage;
+    }
+
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      const total = getTotalPages();
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('blog-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function goTo(page) {
+      const perPage = getPerPage();
+      const itemW = getItemWidth();
+      const offset = page * perPage * (itemW + getGap());
+
+      track.style.transform = `translateX(-${offset}px)`;
+      currentPage = page;
+
+      document.querySelectorAll('.blog-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === page);
+      });
+
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= getTotalPages() - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 0) goTo(currentPage - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < getTotalPages() - 1) goTo(currentPage + 1);
+    });
+
+    function init() {
+      currentPage = 0;
+      track.style.transform = 'translateX(0)';
+      createDots();
+      goTo(0);
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(init, 150);
+    });
+
+    init();
+  })();
+
+
   /**
-   * Frequently Asked Questions Toggle
-   */
-  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle, .faq-item .faq-header').forEach((faqItem) => {
-    faqItem.addEventListener('click', () => {
-      faqItem.parentNode.classList.toggle('faq-active');
+     * FAQ Toggle
+     */
+  document.querySelectorAll('.faq-item .faq-header').forEach((header) => {
+    header.addEventListener('click', () => {
+      const parentItem = header.closest('.faq-item');
+      const isAlreadyOpen = parentItem.classList.contains('faq-active');
+
+      // Close all open items
+      document.querySelectorAll('.faq-item.faq-active').forEach(el => {
+        el.classList.remove('faq-active');
+      });
+
+      // Open clicked one only if it was closed
+      if (!isAlreadyOpen) {
+        parentItem.classList.add('faq-active');
+      }
     });
   });
 
